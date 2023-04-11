@@ -1,5 +1,0 @@
-Task: Create a Linux User with non-interactive shell in app server 2
-#From the JumpServer, ssh into the required server using the username and password
-ssh username@ip_address #input password when system prompts for password
-#create user with a non-interactive shell i.e., instead of /bin/bash, use /bin/false
-sudo adduser --shell /bin/false userName

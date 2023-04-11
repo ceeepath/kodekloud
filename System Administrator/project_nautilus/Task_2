@@ -1,5 +1,0 @@
-Task: Please give everyone executable permissions to /tmp/xfusioncorp.sh script on App Server 3
-#first check the current permission using
-ll /path/to/file.sh or ls -l /path/to/file.sh
-#Then make all users have read and executable permission
-sudo chmod 555 /path/to/file.sh
