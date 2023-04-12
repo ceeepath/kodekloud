@@ -2,3 +2,5 @@
 sudo adduser --shell /bin/false userName
 #Task2: Please give everyone executable permissions to /tmp/xfusioncorp.sh script on App Server 3
 sudo chmod 555 /path/to/file.sh
+#Task3: Linux TimeZones Setting
+sudo timedatectl set-timezone America/New_York
