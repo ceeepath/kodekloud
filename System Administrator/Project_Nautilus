@@ -4,3 +4,5 @@ sudo adduser --shell /bin/false userName
 sudo chmod 555 /path/to/file.sh
 #Task3: Linux TimeZones Setting
 sudo timedatectl set-timezone America/New_York
+#Task4: Set banner / motd
+Paste the message into **/etc/issue, /etc/issue.net** for banner then **/etc/motd** for motd.
