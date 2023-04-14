@@ -6,3 +6,9 @@ sudo chmod 555 /path/to/file.sh
 sudo timedatectl set-timezone America/New_York
 #Task4: Set banner / motd
 Paste the message into /etc/issue, /etc/issue.net for banner then /etc/motd for motd.
+#Task5: Install and configure NTP server on App Server 1. Add NTP server 3.europe.pool.ntp.org in NTP configuration on App Server 1.
+sudo yum install ntp -y
+#Edit the configuration files
+vi /etc/ntp.conf
+# Add the required NTP server to the list
+server 3.europe.pool.ntp.org iburst
