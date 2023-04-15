@@ -12,3 +12,8 @@ sudo yum install ntp -y
 vi /etc/ntp.conf
 # Add the required NTP server to the list
 server 3.europe.pool.ntp.org iburst
+#Task5: Configure passwordless ssh authentication from jump server to other servers on the network
+#Create ssh key on the jump server
+ssh-keygen
+#Copy key to remote servers
+ssh-copy-id remoteuser@ipaddress
