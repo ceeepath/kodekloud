@@ -1,9 +1,12 @@
 #Task1: Create a Linux User with non-interactive shell in app server 2
 sudo adduser --shell /bin/false userName
+=======================================================================================================================================================================
 #Task2: Please give everyone executable permissions to /tmp/xfusioncorp.sh script on App Server 3
 sudo chmod 555 /path/to/file.sh
+=======================================================================================================================================================================
 #Task3: Linux TimeZones Setting
 sudo timedatectl set-timezone America/New_York
+=======================================================================================================================================================================
 #Task4: Set banner / motd
 Paste the message into /etc/issue, /etc/issue.net for banner then /etc/motd for motd.
 #Task5: Install and configure NTP server on App Server 1. Add NTP server 3.europe.pool.ntp.org in NTP configuration on App Server 1.
@@ -12,8 +15,24 @@ sudo yum install ntp -y
 vi /etc/ntp.conf
 # Add the required NTP server to the list
 server 3.europe.pool.ntp.org iburst
+=======================================================================================================================================================================
 #Task5: Configure passwordless ssh authentication from jump server to other servers on the network
 #Create ssh key on the jump server
 ssh-keygen
 #Copy key to remote servers
 ssh-copy-id remoteuser@ipaddress
+=======================================================================================================================================================================
+#Task6: Install SElinux package on server
+#Update ym package first
+sudo yum update
+#Install the selinux dependencies
+sudo yum install policycoreutils policycoreutils-python setools setools-console setroubleshoot
+#Install selinux
+yum install selinux-policy selinux-policy-targeted
+#Enable selinux in the /etc/selinux/config by changing SELINUX=disabled to SELINUX=enforcing
+#Reboot server to complete status
+#Check selinux status with;
+sudo sestatus
+=======================================================================================================================================================================
+
+
