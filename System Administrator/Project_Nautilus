@@ -23,7 +23,7 @@ ssh-keygen
 ssh-copy-id remoteuser@ipaddress
 =======================================================================================================================================================================
 #Task6: Install SElinux package on server
-#Update ym package first
+#Update yum package first
 sudo yum update
 #Install the selinux dependencies
 sudo yum install policycoreutils policycoreutils-python setools setools-console setroubleshoot
