@@ -34,5 +34,19 @@ yum install selinux-policy selinux-policy-targeted
 #Check selinux status with;
 sudo sestatus
 =======================================================================================================================================================================
+#Task7: Install cronie and setup cron job with root user
+#Update yum package
+sudo yum update -y
+#Instal Cronie
+sudo yum install cronie -y
+#Start crond service
+sudo systemctl start crond
+#Enable crond to always start on reboot
+sudo systemctl enable crond
+#Switch to root user
+sudo -i
+#Edit cron table and paste cron job command
+crontab -e
+=======================================================================================================================================================================
 
 
