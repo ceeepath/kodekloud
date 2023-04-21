@@ -9,6 +9,7 @@ sudo timedatectl set-timezone America/New_York
 =======================================================================================================================================================================
 #Task4: Set banner / motd
 Paste the message into /etc/issue, /etc/issue.net for banner then /etc/motd for motd.
+=======================================================================================================================================================================
 #Task5: Install and configure NTP server on App Server 1. Add NTP server 3.europe.pool.ntp.org in NTP configuration on App Server 1.
 sudo yum install ntp -y
 #Edit the configuration files
@@ -16,13 +17,13 @@ vi /etc/ntp.conf
 # Add the required NTP server to the list
 server 3.europe.pool.ntp.org iburst
 =======================================================================================================================================================================
-#Task5: Configure passwordless ssh authentication from jump server to other servers on the network
+#Task6: Configure passwordless ssh authentication from jump server to other servers on the network
 #Create ssh key on the jump server
 ssh-keygen
 #Copy key to remote servers
 ssh-copy-id remoteuser@ipaddress
 =======================================================================================================================================================================
-#Task6: Install SElinux package on server
+#Task7: Install SElinux package on server
 #Update yum package first
 sudo yum update
 #Install the selinux dependencies
@@ -34,7 +35,7 @@ yum install selinux-policy selinux-policy-targeted
 #Check selinux status with;
 sudo sestatus
 =======================================================================================================================================================================
-#Task7: Install cronie and setup cron job with root user
+#Task8: Install cronie and setup cron job with root user
 #Update yum package
 sudo yum update -y
 #Instal Cronie
@@ -48,17 +49,18 @@ sudo -i
 #Edit cron table and paste cron job command
 crontab -e
 =======================================================================================================================================================================
-#Task8: Replace all occurances of the string Sample to Maritime on the XML file /root/nautilus.xml located in the backup server.
+#Task9: Replace all occurances of the string Sample to Maritime on the XML file /root/nautilus.xml located in the backup server.
 #We can use the "sed" command  which is a cli utility for manipulating texts to do this search and replace
 sed -i 's/Sample/Maritime/g' your_xml_file.xml
 #"-i" tells sed to edit the file in place, i.e., modify the file itself instead of just printing the modified text to the console.
 #"'s/Sample/Maritime/g'" is the sed command that tells sed to replace all occurrences of "Sample" with "Maritime".
 #The "s" at the beginning indicates that sed should substitute text, and the "g" at the end tells sed to replace all occurrences of the pattern, not just the first one.
 =======================================================================================================================================================================
-#Task9:
-
+#Task10: Copy /tmp/nautilus.txt.gpg file from jump server to App Server 1 at location /home/code
+#We can use the scp command:
+scp /tmp/nautilus.txt.gpg tony@172.16.238.10:/home/code/nautilus.txt.gpg
 =======================================================================================================================================================================
-
+#Task11:
 
 =======================================================================================================================================================================
 
