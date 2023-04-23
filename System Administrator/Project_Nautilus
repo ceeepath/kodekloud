@@ -63,8 +63,17 @@ scp /tmp/nautilus.txt.gpg tony@172.16.238.10:/home/code/nautilus.txt.gpg
 #Task11: Create a user named siva in App Server 3 without a home directory.
 sudo adduser -r siva
 =======================================================================================================================================================================
-#Task12:
-
+#Task12: change the default runlevel so that they can boot in GUI (graphical user interface) by default.
+#If run levels are in use then edit the /etc/inittab file
+sudo vi /etc/inittab
+#Edit the line that starts with "id:3:initdefault:" and change the "3" to "5", so it looks like this: id:5:initdefault:
+#If target is being used instead of run levels run the command;
+sudo systemctl set-default graphical.target
+#To change back to multi-user;
+sudo systemctl set-default multi-user.target
+#To check current status;
+systemctl get-default
+#Remember to reboot for changes to take effect.
 =======================================================================================================================================================================
 #Task13:
 
