@@ -78,8 +78,12 @@ systemctl get-default
 #Task13:create a user named ravi on the App Server 1. Set expiry date to 2021-02-17 in Stratos Datacenter
 sudo useradd -e 2021-02-17 ravi
 =======================================================================================================================================================================
-#Task14:
-
+#Task14: Copy out all the files owned by a particular user from a directory and its sub directories without altering the directory structrue into another directory.
+find /path/to/directory -user username -type f -exec cp --parents {} /directory/to/copy/to \;
+#To check for correctness, count number of files owned by that user in the default directory and count in the new directory as well.
+find /path/to/directory -user username -type f | wc -l #-type f specifies that only regular files should be selected, excluding directories.
+#-exec cp --parents {} /directory/to/copy/to \; copies each file to the /directory/to/copy/to directory while preserving the directory structure.
+#The {} is a placeholder for the filename found by find, and the --parents option preserves the directory structure of the file being copied.
 =======================================================================================================================================================================
 #Task15:
 
