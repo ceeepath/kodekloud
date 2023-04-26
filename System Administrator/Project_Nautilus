@@ -85,8 +85,16 @@ find /path/to/directory -user username -type f | wc -l #-type f specifies that o
 #-exec cp --parents {} /directory/to/copy/to \; copies each file to the /directory/to/copy/to directory while preserving the directory structure.
 #The {} is a placeholder for the filename found by find, and the --parents option preserves the directory structure of the file being copied.
 =======================================================================================================================================================================
-#Task15:
-
+#Task15:mariadb service is down on the database server
+#Check logs for details of issue
+journalctl -xe | grep mariadb
+#logs shows issue with file ownership and permission issues of /var/lib/mysql file
+#change file ownership and group to mysql user
+sudo chown -R mysql:mysql /var/lib/mysql
+#Now start the mariadb.service service
+sudo systemctl start mariadb.service
+#Check status to confirm functionality
+sudo systemctl status mariadb
 =======================================================================================================================================================================
 #Task16:
 
