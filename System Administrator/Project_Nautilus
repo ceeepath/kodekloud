@@ -96,8 +96,17 @@ sudo systemctl start mariadb.service
 #Check status to confirm functionality
 sudo systemctl status mariadb
 =======================================================================================================================================================================
-#Task16:
-
+#Task16:On Nautilus App Server 3, alter the /home/BSD.txt file as per details given below:
+#a. Delete all lines containing word following and save results in /home/BSD_DELETE.txt file. (Please be aware of case sensitivity)
+#b. Replace all occurrence of word or to them and save results in /home/BSD_REPLACE.txt file.
+#a)First, create a new file BSD_DELETE.txt. We can just copy from the original BSD file.
+cp BSD.txt BSD_DELETE.txt
+#Use the sed command to search for the word "following" and delete every line that has it.
+sed -i '/following/d' BSD_DELETE.txt
+#b)We can also use the sed command for this
+sed 's/\bor\b/them/g' BSD.txt > /home/BSD_REPLACE.txt
+#The s/ instructs the command to substitute and \b is for setting a boundary on the word "or" so it only substitute a standalone "or" not an "or" in another word.
+#/g instructs the command to replace all occurence and not only one occurence.
 =======================================================================================================================================================================
 #Task17:
 
@@ -106,6 +115,24 @@ sudo systemctl status mariadb
 
 =======================================================================================================================================================================
 #Task19:
+
+=======================================================================================================================================================================
+#Task20:
+
+=======================================================================================================================================================================
+#Task21:
+
+=======================================================================================================================================================================
+#Task22:
+
+=======================================================================================================================================================================
+#Task23:
+
+=======================================================================================================================================================================
+#Task24:
+
+=======================================================================================================================================================================
+#Task25:
 
 =======================================================================================================================================================================
 
