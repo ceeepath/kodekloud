@@ -142,8 +142,11 @@ sudo mkdir -m 770 /sysadmin/data
 #Change the group ownership of the directory and sub-directories to sysadmin 
 chown -R :sysadmin /sysadmin/data
 =======================================================================================================================================================================
-#Task20:
-
+#Task20:Disable direct SSH root login on all app servers in Stratos Datacenter
+#Search for #PermitRootLogin in /etc/ssh/sshd_config, uncomment it and change the permission from "yes" to "no"
+sudo vi /etc/ssh/sshd_config
+#Restart the sshd_config
+sudo systemctl restart sshd
 =======================================================================================================================================================================
 #Task21:
 
