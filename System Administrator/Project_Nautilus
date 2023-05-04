@@ -148,8 +148,18 @@ sudo vi /etc/ssh/sshd_config
 #Restart the sshd_config
 sudo systemctl restart sshd
 =======================================================================================================================================================================
-#Task21:
-
+#Task21:a. Install postfix package on all the application servers.
+#b. Once installed, make sure it is enabled to start during boot.
+-----------------------------------------------------------------------
+#!/bin/bash
+read -sp 'Enter your password: ' PASSWORD
+echo $PASSWORD | sudo -S yum update -y
+echo $PASSWORD | sudo -S yum install httpd -y
+sleep 30
+echo $PASSWORD | sudo -S sed -i 's/inet_protocols = all/inet_protocols = ipv4/g' /etc/postfix/main.cf
+echo $PASSWORD | sudo -S systemctl start postfix
+echo $PASSWORD | sudo -S systemctl enable postfix
+echo $PASSWORD | sudo -S systemctl status postfix
 =======================================================================================================================================================================
 #Task22:
 
