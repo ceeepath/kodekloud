@@ -169,8 +169,9 @@ echo $PASSWORD | sudo -S systemctl status postfix
 sudo -i
 #We can now create a key id and import it for the recipient
 cd /home
-gpg --list-keys
 gpg --import private_key.asc; gpg --import public_key.asc #This creates a key id for the recipient
+#we can view the imported keys using;
+gpg --list-keys
 #use the created key to encrypt the file
 gpg --encrypt --recipient "kodekloud@kodekloud.com" --output encrypted_me.asc encrypt_me.txt
 #To decrypt the file
