@@ -154,15 +154,28 @@ sudo systemctl restart sshd
 #!/bin/bash
 read -sp 'Enter your password: ' PASSWORD
 echo $PASSWORD | sudo -S yum update -y
-echo $PASSWORD | sudo -S yum install httpd -y
+echo $PASSWORD | sudo -S yum install postfix -y
 sleep 30
 echo $PASSWORD | sudo -S sed -i 's/inet_protocols = all/inet_protocols = ipv4/g' /etc/postfix/main.cf
 echo $PASSWORD | sudo -S systemctl start postfix
 echo $PASSWORD | sudo -S systemctl enable postfix
 echo $PASSWORD | sudo -S systemctl status postfix
 =======================================================================================================================================================================
-#Task22:
-
+#Task22:On storage server in Stratos Datacenter we have private and public keys stored /home/*_key.asc. Use those keys to perform the following actions.
+#Encrypt /home/encrypt_me.txt to /home/encrypted_me.asc.
+#Decrypt /home/decrypt_me.asc to /home/decrypted_me.txt. (Passphrase for decryption and encryption is kodekloud).
+-----------------------------------------------------------------------------------------------------------------------
+#Seeing that the files to use belong to root user then it is advisable to switch to root user first.
+sudo -i
+#We can now create a key id and import it for the recipient
+cd /home
+gpg --list-keys
+gpg --import private_key.asc; gpg --import public_key.asc #This creates a key id for the recipient
+#use the created key to encrypt the file
+gpg --encrypt --recipient "kodekloud@kodekloud.com" --output encrypted_me.asc encrypt_me.txt
+#To decrypt the file
+gpg --output decrypted_me.txt --decrypt decrypt_me.asc
+#enter passphrase
 =======================================================================================================================================================================
 #Task23:
 
