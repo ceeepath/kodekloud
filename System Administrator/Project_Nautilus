@@ -215,8 +215,17 @@ Header set X-Frame-Options "SAMEORIGIN"
 Header set X-Content-Type-Options "nosniff"
 #Restart httpd service then run curl -v localhost:port to verify result.
 =======================================================================================================================================================================
-#Task24:
-
+#Task24:a. In all app servers install haproxy package.
+#b. Using logrotate configure haproxy logs rotation to monthly and keep only 3 rotated logs.
+-------------------------------------------------------------------------------------------------
+#To install haproxy, we can use script;
+#!/bin/bash
+read -sp 'Enter your password: ' PASSWORD
+echo $PASSWORD | sudo -S yum update -y
+echo $PASSWORD | sudo -S yum install haproxy -y
+#To configure haproxy with logrotate as required, edit /etc/logrotate.d/haproxy and input the required parameter.
+sudo vi /etc/logrotate.d/haproxy
+#change daily to monthly and change rotate from the default 10 to 3. Save and exit.
 =======================================================================================================================================================================
 #Task25:
 
