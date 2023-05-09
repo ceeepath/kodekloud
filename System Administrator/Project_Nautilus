@@ -227,8 +227,24 @@ echo $PASSWORD | sudo -S yum install haproxy -y
 sudo vi /etc/logrotate.d/haproxy
 #change daily to monthly and change rotate from the default 10 to 3. Save and exit.
 =======================================================================================================================================================================
-#Task25:
-
+#Task25:Please configure a local yum repository on Nautilus Backup Server as per details given below.
+#a. We have some packages already present at location /packages/downloaded_rpms/ on Nautilus Backup Server.
+#b. Create a yum repo named epel_local and make sure to set Repository ID to epel_local. Configure it to use package's location /packages/downloaded_rpms/.
+#c. Install package samba from this newly created repo.
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+#We are supposed to install createrepo but i noticed it has already been installed. So we would just go ahead to create a metadata for the yum repo.
+sudo createrepo /packages/downloaded_rpms/
+#We then have to Create a repository configuration file named epel_local.repo in the /etc/yum.repos.d/
+sudo vi /etc/yum.repos.d/epel_local.repo
+#Paste the following content in it
+[epel_local]
+name=Local Yum Repo
+baseurl=file:///packages/downloaded_rpms/
+enabled=1
+gpgcheck=0
+#Save and close.
+#We can now install samba with yum.
+sudo yum install samba -y
 =======================================================================================================================================================================
 #Task26:
 
@@ -242,6 +258,28 @@ sudo vi /etc/logrotate.d/haproxy
 #Task29:
 
 =======================================================================================================================================================================
+#Task30:
 
+=======================================================================================================================================================================
+#Task31:
 
+=======================================================================================================================================================================
+#Task32:
+
+=======================================================================================================================================================================
+#Task33:
+
+=======================================================================================================================================================================
+#Task34:
+
+=======================================================================================================================================================================
+#Task35:
+
+=======================================================================================================================================================================
+#Task36:
+
+=======================================================================================================================================================================
+#Task37:
+
+=======================================================================================================================================================================
 
