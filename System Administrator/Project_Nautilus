@@ -246,8 +246,25 @@ gpgcheck=0
 #We can now install samba with yum.
 sudo yum install samba -y
 =======================================================================================================================================================================
-#Task26:
+#Task26:httpd is already installed on app server 2. Configure Apache to listen on port 3001. Configure Apache to add some redirects as mentioned below:
+#a.) Redirect http://stapp02.stratos.xfusioncorp.com:<Port>/ to http://www.stapp02.stratos.xfusioncorp.com:<Port>/ i.e non www to www. This must be a permanent redirect i.e 301
+#b.) Redirect http://www.stapp02.stratos.xfusioncorp.com:<Port>/blog/ to http://www.stapp02.stratos.xfusioncorp.com:<Port>/news/. This must be a temporary redirect i.e 302.
+----------------------------------------------
+#We need to edit the apache configuration file in /etc/httpd/conf/httpd.conf
+sudo vi /etc/httpd/conf/httpd.conf
+#Edit the Listen 8080 line to Listen 3001
+#Write the VirtualHost block to redirect the sites as required after the last line of the configuration file.
+<VirtualHost *:3001>
+    ServerName stapp02.stratos.xfusioncorp.com
+    Redirect 301 / http://www.stapp02.stratos.xfusioncorp.com:3001/
+</VirtualHost>
 
+<VirtualHost *:3001>
+    ServerName www.stapp02.stratos.xfusioncorp.com
+    Redirect 302 /blog/ http://www.stapp02.stratos.xfusioncorp.com:3001/news/
+</VirtualHost>
+#Save and restart apache service
+sudo systemctl restart httpd
 =======================================================================================================================================================================
 #Task27:
 
