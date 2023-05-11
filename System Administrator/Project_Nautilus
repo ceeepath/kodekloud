@@ -266,8 +266,19 @@ sudo vi /etc/httpd/conf/httpd.conf
 #Save and restart apache service
 sudo systemctl restart httpd
 =======================================================================================================================================================================
-#Task27:
-
+#Task27:We have a backup management application UI hosted on Nautilus's backup server in Stratos DC. That backup management application code is deployed under Apache
+#on the backup server itself, and Nginx is running as a reverse proxy on the same server. Apache and Nginx ports are 8085 and 8097, respectively.
+#We have iptables firewall installed on this server. Make the appropriate changes to fulfill the requirements mentioned below:
+#We want to open all incoming connections to Nginx's port and block all incoming connections to Apache's port. Also make sure rules are permanent.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+#To allow incoming connections to Nginx port and block all incoming to Apache port;
+iptables -A INPUT -p tcp --dport 8097 -j ACCEPT;iptables -A INPUT -p tcp --dport 8085 -j DROP
+#Save the configuration
+service iptables save
+#Restart Iptable service to apply the rules
+systemctl restart iptables
+#You can confirm the rules we just added using;
+iptables -L -n
 =======================================================================================================================================================================
 #Task28:
 
