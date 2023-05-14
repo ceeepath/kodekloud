@@ -308,8 +308,42 @@ echo "Welcome!" > index.html
 #Save the file and restart nginx
 sudo systemctl restart nginx
 =======================================================================================================================================================================
-#Task29:
-
+#Task29:create a bash script named beta_backup.sh which should accomplish the following tasks. (Also remember to place the script under /scripts directory on App Server 2)
+#a. Create a zip archive named xfusioncorp_beta.zip of /var/www/html/beta directory.
+#b. Save the archive in /backup/ on App Server 2. This is a temporary storage, as backups from this location will be clean on weekly basis. Therefore, we also need to save this backup archive on Nautilus Backup Server.
+#c. Copy the created archive to Nautilus Backup Server server in /backup/ location.
+#d. Please make sure script won't ask for password while copying the archive file. Additionally, the respective server user (for example, tony in case of App Server 1) must be able to run it.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#First, set up passwordless ssh connection between the App server and the Backup server. Refer to Task6
+#Use the script below for the remaining process.
+#!/bin/bash
+# Specify the source directory
+source_dir="/var/www/html/beta"
+# Specify the destination directory
+backup_dir="/backup"
+# Specify the backup filename
+backup_file="$backup_dir/xfusioncorp_beta.zip"
+# Create the zip archive
+zip -r "$backup_file" "$source_dir"
+# Check if the zip archive was created successfully
+if [ $? -eq 0 ]; then
+  echo "Backup created successfully: $backup_file"
+else
+  echo "Failed to create backup."
+  exit 1
+fi
+# Specify the remote server details
+remote_user="clint"
+remote_server="172.16.238.16"
+remote_dir="/backup"
+# Copy the backup file to the remote server using scp
+scp "$backup_file" "$remote_user@$remote_server:$remote_dir"
+# Check if the scp command was successful
+if [ $? -eq 0 ]; then
+  echo "Backup file copied to $remote_server:$remote_dir"
+else
+  echo "Failed to copy backup file."
+fi
 =======================================================================================================================================================================
 #Task30:
 
