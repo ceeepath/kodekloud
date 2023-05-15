@@ -346,11 +346,15 @@ else
 fi
 =======================================================================================================================================================================
 #Task30:a. On App Server 2 at location /var/www/html/ecommerce find out all files (not directories) having .php extension.
-
-b. Copy all those files along with their parent directory structure to location /ecommerce on same server.
-
-c. Please make sure not to copy the entire /var/www/html/ecommerce directory content.
-
+#b. Copy all those files along with their parent directory structure to location /ecommerce on same server.
+#c. Please make sure not to copy the entire /var/www/html/ecommerce directory content.
+-------------------------------------------------------------------------------------------------------------------------------
+#First, we can check how many of those files exist in the /var/www/html/ecommerce directory. This is not necessary though.
+find /var/www/html/ecommerce -type f -name "*.php" | wc -l
+#Copy the files with extension .php
+sudo find /var/www/html/ecommerce -type f -name "*.php" -exec cp --parents {} /ecommerce \;
+#Verify that the correct number of files was copied
+find /ecommerce -type f -name "*.php" | wc -l
 =======================================================================================================================================================================
 #Task31:
 
