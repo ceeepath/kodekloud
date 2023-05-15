@@ -345,7 +345,11 @@ else
   echo "Failed to copy backup file."
 fi
 =======================================================================================================================================================================
-#Task30:
+#Task30:a. On App Server 2 at location /var/www/html/ecommerce find out all files (not directories) having .php extension.
+
+b. Copy all those files along with their parent directory structure to location /ecommerce on same server.
+
+c. Please make sure not to copy the entire /var/www/html/ecommerce directory content.
 
 =======================================================================================================================================================================
 #Task31:
