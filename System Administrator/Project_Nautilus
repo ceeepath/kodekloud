@@ -192,7 +192,7 @@ read -sp 'Enter your password: ' PASSWORD
 echo $PASSWORD | sudo -S yum update -y
 echo $PASSWORD | sudo -S yum install httpd -y
 sleep 20
-echo $PASSWORD | sudo sed -i 's/^Listen 80$/Listen 8081/' /etc/httpd/conf/httpd.conf
+echo $PASSWORD | sudo sed -i 's/^Listen 80$/Listen 6400/' /etc/httpd/conf/httpd.conf
 echo $PASSWORD | sudo -S systemctl start httpd
 echo $PASSWORD | sudo -S systemctl enable httpd
 echo $PASSWORD | sudo -S systemctl status httpd
