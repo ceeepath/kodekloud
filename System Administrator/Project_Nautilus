@@ -356,8 +356,8 @@ sudo find /var/www/html/ecommerce -type f -name "*.php" -exec cp --parents {} /e
 #Verify that the correct number of files was copied
 find /ecommerce -type f -name "*.php" | wc -l
 =======================================================================================================================================================================
-#Task31:
-
+#Task31:Install the telnet package on all app-servers
+sudo yum install telnet -y
 =======================================================================================================================================================================
 #Task32:
 
