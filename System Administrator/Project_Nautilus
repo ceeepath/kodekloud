@@ -359,8 +359,24 @@ find /ecommerce -type f -name "*.php" | wc -l
 #Task31:Install the telnet package on all app-servers
 sudo yum install telnet -y
 =======================================================================================================================================================================
-#Task32:
-
+#Task32:a. On Nautilus App Server 2 it was identified that the Apache web server is exposing the version number. Ensure this server has the appropriate settings to hide the 
+#version number of the Apache web server.
+#b. There is a website hosted under /var/www/html/beta on App Server 2. It was detected that the directory /beta lists all of its contents while browsing the URL. 
+#Disable the directory browser listing in Apache config.
+#c. Also make sure to restart the Apache service after making the changes.
+--------------------------------------------------------------------------------------------
+#vi into the /etc/httpd/conf/httpd.conf
+sudo vi /etc/httpd/conf/httpd.conf
+#To configure Apache web server to hide version number, search for the line with "ServerTokens" and add "Prod" in front of it. If it does not exist before, then add a new
+#line with "ServerTokens Prod".
+#To disable directory browser listing on the /var/www/html/beta directory, look for the <Directory> section that contains /var/www/html/beta. If it does not exist, add a new
+#section:
+<Directory "/var/www/html/beta">
+    Options -Indexes
+</Directory>
+#Save the file
+#Restart httpd
+sudo systemctl restart httpd
 =======================================================================================================================================================================
 #Task33:
 
