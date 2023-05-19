@@ -378,8 +378,9 @@ sudo vi /etc/httpd/conf/httpd.conf
 #Restart httpd
 sudo systemctl restart httpd
 =======================================================================================================================================================================
-#Task33:
-
+#Task33:a. Provide sudo access to user mariyam on all app servers. b. Make sure you have set up password-less sudo for the user.
+#To give mariyam password-less sudo run the command below on all app servers
+sudo echo "mariyam ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/mariyam
 =======================================================================================================================================================================
 #Task34:
 
