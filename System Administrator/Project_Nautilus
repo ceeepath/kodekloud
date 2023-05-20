@@ -382,8 +382,65 @@ sudo systemctl restart httpd
 #To give mariyam password-less sudo run the command below on all app servers
 sudo echo "mariyam ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/mariyam
 =======================================================================================================================================================================
-#Task34:
+#Task34:Set up a common email server in Stork DC server using postfix as mail transfer agent and dovecot as an IMAP/POP3 server.
+#Install and configure postfix on Stork DC mail server. Create an email account kareem@stratos.xfusioncorp.com identified by GyQkFRVNr3.
+#Set its mail directory to /home/kareem/Maildir. Install and configure dovecot on the same server.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#First I noticed they made an error calling the email server Stork DC. I had to login to the one called stmail01 i.e., Nautilus Mail Server.
+#We need to install the required packages. I used this script for the installations
+#!/bin/bash
+PASSWORD=Gr00T123
+echo $PASSWORD | sudo yum update -y
+echo $PASSWORD | sudo yum install postfix -y
+echo $PASSWORD | sudo yum install dovecot -y
 
+#We need to configure postfix
+sudo vi /etc/postfix/main.cf
+#Add the following configurations: TIP: All these lines exists in the file already. We just need to uncomment them and edit where needed. 
+myhostname = mail.stratos.xfusioncorp.com
+mydomain = stratos.xfusioncorp.com
+myorigin = $mydomain
+inet_interfaces = all
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+home_mailbox = Maildir/
+#We should remember to comment out inet_interfaces = localhost and any other "mydestination =" that is uncommented unless the one we need in our configuration.
+
+#We need to configure dovecot
+sudo vi /etc/dovecot/dovecot.conf
+#Paste the following lines in it maybe in between lines or at the bottom
+listen = *
+mail_location = maildir:/home/%u/Maildir
+auth_username_format = %u
+#Save and quit
+
+sudo vi /etc/dovecot/conf.d/10-auth.conf
+#Search for "#disable_plaintext_auth = yes" and change the yes to no. Leave it commented
+
+sudo vi /etc/dovecot/conf.d/10-ssl.conf
+#Search for "ssl = required" and change it to ssl = yes
+
+#Generate SSL for dovecot
+sudo openssl req -new -x509 -days 365 -nodes -out /etc/pki/dovecot/certs/dovecot.pem -keyout /etc/pki/dovecot/private/dovecot.pem
+#It will bring up other prompt, just keep inputing fullstop i.e. "." and press enter until the end of the prompt.
+
+#Set ownership permission
+sudo chown -R dovecot:dovecot /etc/pki/dovecot
+sudo chmod 400 /etc/pki/dovecot/private/dovecot.pem
+
+#Create Mail User Account and set Maildir ownership
+sudo useradd -m kareem
+sudo passwd kareem #Add the password provided in the task when prompted to enter password In my case: GyQkFRVNr3
+sudo mkdir /home/kareem/Maildir
+sudo chown -R kareem:kareem /home/kareem/Maildir
+sudo chmod -R 700 /home/kareem/Maildir
+
+#Configure created user in Postfix Virtual Mailbox
+echo "kareem@stratos.xfusioncorp.com        kareem/Maildir/" | sudo tee -a /etc/postfix/vmailbox
+sudo postmap /etc/postfix/vmailbox
+
+#Restart services for Postfix and Dovecot
+sudo systemctl restart postfix
+sudo systemctl restart dovecot
 =======================================================================================================================================================================
 #Task35:
 
