@@ -442,8 +442,51 @@ sudo postmap /etc/postfix/vmailbox
 sudo systemctl restart postfix
 sudo systemctl restart dovecot
 =======================================================================================================================================================================
-#Task35:
-
+#Task35:The system admins team has decided to configure the SFTP server on App Server 2 server in Stratos Datacenter. Please configure it as per the following instructions:
+#a. Create an SFTP user yousuf and set its password to ksH85UJjhb. b. Password authentication should be enabled for this user. c. Set its ChrootDirectory to /var/www/app.
+#d. SFTP user should only be allowed to make SFTP connections.
+------------------------------------------------------------------------------------------
+#The Script below should handle the task. Please don't mind my sleep and paparazi, i just won use the script play. smile.
+#!/bin/bash
+echo "collecting environmental variables"
+sleep 3
+echo "Please provide the app server password for sudo access"
+read -sp "server password: " serverpass
+echo "Please provide SFTP user username"
+read -p "SFTP user's username: " username
+echo "Please provide SFTP user's password"
+read -sp "Input SFTP password: " password
+echo "Creating SFTP user's details..."
+sleep 3
+#Create the SFTP user and assign password
+echo $serverpass | sudo adduser $username
+echo $password | sudo passwd $username --stdin
+echo "SFTP user created successfully"
+echo "Creating Chroot Directory and Permission assigment..."
+sleep 3
+#Create Chroot Directory and assign permissions
+sudo mkdir -p /var/www/app
+sudo chown -R root:root /var/www/app
+sudo chmod -R 755 /var/www/app
+echo "Chroot directory created and permission assignment successful"
+#Configure SFTP access and restart SSH service
+sudo tee -a /etc/ssh/sshd_config << EOF
+Match User $username
+        ChrootDirectory /var/www/app
+        ForceCommand internal-sftp
+        X11Forwarding no
+        AllowTcpForwarding no
+        PasswordAuthentication yes
+        AllowAgentForwarding no
+        PermitTunnel no
+EOF
+sudo systemctl restart sshd
+sleep 5
+if [ $? -eq 0 ]
+then echo "SFTP configurations successful"
+else
+echo "Some issues with SFTP configurations"
+fi
 =======================================================================================================================================================================
 #Task36:
 
