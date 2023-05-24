@@ -488,10 +488,79 @@ else
 echo "Some issues with SFTP configurations"
 fi
 =======================================================================================================================================================================
-#Task36:
-
+#Task36:a. Install and configure PostgreSQL database on Nautilus database server. b. Create a database user kodekloud_gem and set its password to dCV3szSGNA.
+#c. Create a database kodekloud_db3 and grant full permissions to user kodekloud_gem on this database. d. Make appropriate settings to allow all local clients
+#(local socket connections) to connect to the kodekloud_db3 database through kodekloud_gem user using md5 method (Please do not try to encrypt password with md5sum).
+#e. At the end its good to test the db connection using these new credentials from root user or server's sudo user.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Update yum package and Install Postgresql
+sudo yum update -y
+sudo yum install -y postgresql-server
+#Initialize, Start and Enable the Database Service
+sudo postgresql-setup initdb
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+#Switch to the PostgreSQL user
+sudo -u postgres psql
+#Create db user, assign password, create database and privileges
+CREATE USER kodekloud_gem WITH PASSWORD 'dCV3szSGNA';
+CREATE DATABASE kodekloud_db3;
+GRANT ALL PRIVILEGES ON DATABASE kodekloud_db3 TO kodekloud_gem;
+#Configure db access for local client connection
+sudo vi /var/lib/pgsql/data/pg_hba.conf
+#Search for the line that has "# "local" is for Unix domain socket connections only"
+#Comment out the existing "local" entry and add:
+local   kodekloud_db3    kodekloud_gem    md5
+#Save file and exit then restart db service.
+sudo systemctl restart postgresql
+#Test db connection with root user
+#Switch to root user
+sudo -i
+#Connet to database with the precreated credentials
+psql -U kodekloud_gem -d kodekloud_db3
+#Input password (dCV3szSGNA)
+#We ca run a simple command to verify
+SELECT current_database();
 =======================================================================================================================================================================
 #Task37:
 
 =======================================================================================================================================================================
+#Task38:
 
+=======================================================================================================================================================================
+#Task39:
+
+=======================================================================================================================================================================
+#Task40:
+
+=======================================================================================================================================================================
+#Task41:
+
+=======================================================================================================================================================================
+#Task42:
+
+=======================================================================================================================================================================
+#Task43:
+
+=======================================================================================================================================================================
+#Task44:
+
+=======================================================================================================================================================================
+#Task45:
+
+=======================================================================================================================================================================
+#Task46:
+
+=======================================================================================================================================================================
+#Task47:
+
+=======================================================================================================================================================================
+#Task48:
+
+=======================================================================================================================================================================
+#Task49:
+
+=======================================================================================================================================================================
+#Task50:
+
+=======================================================================================================================================================================
