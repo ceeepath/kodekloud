@@ -522,8 +522,21 @@ psql -U kodekloud_gem -d kodekloud_db3
 #We ca run a simple command to verify
 SELECT current_database();
 =======================================================================================================================================================================
-#Task37:
-
+#Task37:Install iptables and all its dependencies on each app host. Block incoming port 8086 on all apps for everyone except for LBR host. Make sure the rules remain, even after system reboot.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Switch to sudo user using "sudo -i" then remember to edit the pass variable in the script to the password of the app server you are running the script on.
+#Also, reember to edit the port in the script to the port in your own question. After editing to your requirement, run the script to resolve the task.
+#!/bin/bash
+pass=BigGr33n
+# Install iptables and its dependencies
+echo $pass | sudo -S yum install -y iptables iptables-services
+sleep 10
+# Start and enable the iptables service
+echo $pass | sudo -S systemctl start iptables
+echo $pass | sudo -S systemctl enable iptables
+sudo iptables -I INPUT -p tcp --dport 8086 -j DROP;sudo iptables -I INPUT -p tcp -s 172.16.238.14 --dport 8086 -j ACCEPT
+iptables-save > /etc/sysconfig/iptables
+sudo iptables -L -n
 =======================================================================================================================================================================
 #Task38:
 
