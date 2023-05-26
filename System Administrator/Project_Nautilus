@@ -538,8 +538,24 @@ sudo iptables -I INPUT -p tcp --dport 8086 -j DROP;sudo iptables -I INPUT -p tcp
 iptables-save > /etc/sysconfig/iptables
 sudo iptables -L -n
 =======================================================================================================================================================================
-#Task38:
-
+#Task38:a. Install tomcat server on App Server 1 using yum. b. Configure it to run on port 5003. c. There is a ROOT.war file on Jump host at location /tmp.
+#Deploy it on this tomcat server and make sure the webpage works directly on base URL i.e without specifying any sub-directory anything like this http://URL/ROOT .
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#First copy the war package from jump server to app server
+scp /tmp/ROOT.war tony@stapp01:/tmp/ROOT.war
+#Install and configure tomcat using this script
+#!/bin/bash
+pass=Ir0nM@n
+echo $pass | sudo -S yum install tomcat -y
+sleep 5
+echo $pass | sudo -S systemctl start tomcat
+echo $pass | sudo -S systemctl enable tomcat
+echo $pass | sudo -S sed -i 's/<Connector port="8080" protocol="HTTP\/1.1"/<Connector port="5003" protocol="HTTP\/1.1"/' /etc/tomcat/server.xml
+echo $pass | sudo -S mv /tmp/ROOT.war /var/lib/tomcat/webapps/
+sleep 15
+echo $pass | sudo -S systemctl restart tomcat
+#To test that site is reachable
+curl -v localhost:5003
 =======================================================================================================================================================================
 #Task39:
 
