@@ -1,1 +1,40 @@
-
+#Task1:a. Install git, set up any values for user.email and user.name globally and create a bare repository /opt/demo.git.
+#b. There is an update hook (to block direct pushes to master branch) under /tmp on storage server itself; use the same to block direct pushes to master branch in /opt/demo.git repo.
+#c. Clone /opt/demo.git repo in /usr/src/kodekloudrepos/demo directory. #d. Create a new branch xfusioncorp_demo in repo that you cloned in /usr/src/kodekloudrepos.
+#e. There is a readme.md file in /tmp on storage server itself; copy that to repo, add/commit in the new branch you created, and finally push your branch to origin.
+#f. Also create master branch from your branch and remember you should not be able to push to master as per hook you have set up.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Install git and carry out initial configurations using this script
+#!/bin/bash
+PASS=Bl@kW
+#Install git
+echo $PASS | sudo -S yum install git -y
+#Configure global credentials
+git config --global user.email "ceeepath@gmial.com"
+git config --global user.name "Adekunle"
+#Create directory and set ownership to natasha i.e. current user
+echo $PASS | sudo -S mkdir /opt/demo.git
+echo $PASS | sudo -S chown -R natasha:natasha /opt/demo.git
+cd /opt/demo.git
+#Initialize the directory as a bare repo as required
+git init --bare
+sleep 5
+#Copy the update file that contains script that will be used to block direct pushes to master branch
+cp /tmp/update /opt/demo.git/hooks/update
+#Set directory ownership to natasha i.e. current user
+echo $PASS | sudo -S chown -R natasha:natasha /usr/src/kodekloudrepos
+cd /usr/src/kodekloudrepos
+#Clone into directory
+git clone /opt/demo.git
+cd /usr/src/kodekloudrepos/demo
+#Create and switch to new branch
+git checkout -b xfusioncorp_demo
+cp /tmp/readme.md .
+#Add and commit latest activity
+git add .
+git commit -m "copied readme.md file from /tmp"
+git push origin xfusioncorp_demo
+#Create and switch to master branch
+git checkout -b master
+#Confirm that you are unable to push to master branch
+git push origin master
