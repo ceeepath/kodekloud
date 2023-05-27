@@ -390,9 +390,9 @@ sudo echo "mariyam ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/mariyam
 #We need to install the required packages. I used this script for the installations
 #!/bin/bash
 PASSWORD=Gr00T123
-echo $PASSWORD | sudo yum update -y
-echo $PASSWORD | sudo yum install postfix -y
-echo $PASSWORD | sudo yum install dovecot -y
+echo $PASSWORD | sudo -S yum update -y
+echo $PASSWORD | sudo -S yum install postfix -y
+echo $PASSWORD | sudo -S yum install dovecot -y
 
 #We need to configure postfix
 sudo vi /etc/postfix/main.cf
