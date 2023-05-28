@@ -557,8 +557,19 @@ echo $pass | sudo -S systemctl restart tomcat
 #To test that site is reachable
 curl -v localhost:5003
 =======================================================================================================================================================================
-#Task39:
-
+#Task39:One of the monitoring systems reported about Apache service unavailability on one of the app servers in Stratos DC.Identify the faulty app host and fix the issue.
+#Make sure Apache service is up and running on all app hosts. Also, make sure Apache is running on port 8086 on all app servers.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#First thing i did was to check all three app servers and run [sudo systemctl status httpd] to know if it is running or not. I identified that it was not running on App Server 1 for me.
+#Then i tried to start it with [sudo systemctl start httpd] then it gave an error and i had to check the log using
+journalctl -xe | grep httpd
+#I saw from the error log that another process is listening on the port 8086. To know which process it is, i had to run
+sudo netstat -tulpn | grep 8086
+#This displayed the process and its process ID as 502 so i had to kill the process using
+sudo kill 502
+#Then i started httpd and checked the status to be sure it is now active.
+sudo systemctl start httpd
+sudo systemctl status httpd
 =======================================================================================================================================================================
 #Task40:
 
