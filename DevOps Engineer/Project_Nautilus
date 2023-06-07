@@ -51,7 +51,19 @@ sudo docker pull busybox:musl
 #To re-tag the image
 sudo docker tag busybox:musl busybox:media
 =======================================================================================================================================================================================================
-#Task5:
+#Task5:Create a puppet programming file official.pp under /etc/puppetlabs/code/environments/production/manifests directory on puppet master node i.e on Jump Server.
+#Define a class mysql_database in puppet programming code and perform below mentioned tasks:
+#Install package mariadb-server (whichever version is available by default in yum repo) on puppet agent node i.e on DB Server also start its service.
+#Create a database kodekloud_db2 , a database userkodekloud_sam and set passwordB4zNgHA7Ya for this new user also remember host should be localhost.
+#Finally grant some usual permissions like select, update (or full) ect to this newly created user on newly created database.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#In this task, the jump server serves as the puppet master while the dbserver is a puppet agent. On the puppet master server, create the official.pp file first
+sudo touch /etc/puppetlabs/code/environments/production/manifests/official.pp #The file name is different for different questions.
+#Paste the puppet code to carry out the task inside the file and save. The code can be found in: https://github.com/DevopGroupstudy/Kodekloud_engineer_related_tasks/blob/main/mariadb.pp
+#Go through the manifest and change question specifics like database name, username and password.
+#Now go to the puppet agent and run;
+sudo puppet agent -t
+#The manifest should run on the agent and carry out the task.
 =======================================================================================================================================================================================================
 #Task6:
 =======================================================================================================================================================================================================
