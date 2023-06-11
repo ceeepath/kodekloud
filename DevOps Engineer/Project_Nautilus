@@ -39,11 +39,7 @@ git checkout -b master
 #Confirm that you are unable to push to master branch
 git push origin master
 =======================================================================================================================================================================================================
-#Task2:
-=======================================================================================================================================================================================================
-#Task3:
-=======================================================================================================================================================================================================
-#Task4:a. Pull busybox:musl image on App Server 1 in Stratos DC and re-tag (create new tag) this image as busybox:media.
+#Task2:a. Pull busybox:musl image on App Server 1 in Stratos DC and re-tag (create new tag) this image as busybox:media.
 ------------------------------------------------
 #I noticed that you have to use elevated permission for each command.
 #To pull the image
@@ -65,7 +61,15 @@ sudo touch /etc/puppetlabs/code/environments/production/manifests/official.pp #T
 sudo puppet agent -t
 #The manifest should run on the agent and carry out the task.
 =======================================================================================================================================================================================================
-#Task6:
+#Task3:a. On App Server 1 save the image news:xfusion in an archive. b. Transfer the image archive to App Server 3.
+#c. Load that image archive on App Server 3 with same name and tag which was used on App Server 1.
+----------------------------------------------------------------------------------------------------------------------
+#To save the image as an archive;
+docker save news:xfusion -o news_xfusion.tar
+#Transfer it to App Server 3 using scp
+scp news_xfusion.tar banner@172.16.238.12:/home/banner
+#Load the archived image in App Server 3
+docker load -i news_xfusion.tar
 =======================================================================================================================================================================================================
 #Task7:
 =======================================================================================================================================================================================================
