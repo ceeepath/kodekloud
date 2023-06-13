@@ -85,7 +85,13 @@ vi playbook.yml
 #run the manifest
 ansible-playbook -i inventory playbook.yml
 =======================================================================================================================================================================================================
-#Task8:
+#Task5:On jump host make appropriate changes so that Ansible can use anita as a default ssh user for all hosts. 
+#Make changes in Ansible's default configuration only —please do not try to create a new config.
+---------------------------------------------------------------------------------------------------
+#vi into the ansible configuration file
+sudo vi /etc/ansible/ansible.cfg
+#search for remote_user, uncomment it if it is commented and make it equal to anita.
+remote_user = anita
 =======================================================================================================================================================================================================
 #Task9:
 =======================================================================================================================================================================================================
