@@ -71,7 +71,19 @@ scp news_xfusion.tar banner@172.16.238.12:/home/banner
 #Load the archived image in App Server 3
 docker load -i news_xfusion.tar
 =======================================================================================================================================================================================================
-#Task7:
+#Task4:Write a playbook.yml under /home/thor/ansible directory on jump host, an inventory file is already present under /home/thor/ansible directory on jump host itself.
+#Using this playbook accomplish below given tasks: Create an empty file /opt/devops/blog.txt on app server 1; its user owner and group owner should be tony.
+#Create a symbolic link of source path /opt/devops to destination /var/www/html.
+#Create an empty file /opt/devops/story.txt on app server 2; its user owner and group owner should be steve. Create a symbolic link of source path /opt/devops to destination /var/www/html.
+#Create an empty file /opt/devops/media.txt on app server 3; its user owner and group owner should be banner. Create a symbolic link of source path /opt/devops to destination /var/www/html.
+---------------------------------------------------------------------------------------------------
+#enter into the /home/thor/ansible directory
+cd ansible
+#create the ansible-playbook for the task
+vi playbook.yml
+#paste the manifest into it. see link to manifest: https://github.com/DevopGroupstudy/Kodekloud_engineer_related_tasks/blob/main/ansible_file_%26_symbolic_link
+#run the manifest
+ansible-playbook -i inventory playbook.yml
 =======================================================================================================================================================================================================
 #Task8:
 =======================================================================================================================================================================================================
