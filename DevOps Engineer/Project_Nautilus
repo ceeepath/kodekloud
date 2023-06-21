@@ -137,7 +137,17 @@ include ntpconfig
 ---
 #Save the file then ssh to the agent server and run [sudo puppet agent -t]
 =======================================================================================================================================================================================================
-#Task11:
+#Task9:There is a pod named webserver and the container under it is named as nginx-container. It is using image nginx:latest.
+There is a sidecar container as well named sidecar-container which is using ubuntu:latest image.Look into the issue and fix it, make sure pod is in running state and you are able to access the app.
+--------------------------------------------------------------------------------------
+#Check the pod name
+kubectl get pod
+#Check the log for the pod
+kubectl logs {podname}
+#In my case i noticed the pod is having issues pulling the nginx image.
+#Edit the pod to see issues with the image
+kubectl edit pod {podname}
+#I noticed a typo in the image name, instead of 'latest' it was written as 'latests', so i corrected it and saved and after a while, the pod went to running state. 
 =======================================================================================================================================================================================================
 #Task12:
 =======================================================================================================================================================================================================
