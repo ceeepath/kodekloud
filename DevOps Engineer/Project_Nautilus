@@ -218,7 +218,23 @@ This file was created using Ansible on {{ inventory_hostname }}
 
 #Save then run the playbook using: ansible-playbook -i inventory playbook.yml
 =======================================================================================================================================================================================================
-#Task14:
+#Task12:Create a Puppet programming file ecommerce.pp under /etc/puppetlabs/code/environments/production/manifests directory on master node i.e Jump Server, and using Puppet user resource
+#add a user on all app servers as mentioned below:
+#Create a user ravi and set its UID to 1550 on Puppet agent nodes 1 i.e App Servers 1.
+---------------------------------------------------------------------------------------------------
+#On the jump server, vi into /etc/puppetlabs/code/environments/production/manifests/ecommerce.pp [remember to add sudo]
+#Paste the following puppet code into the file and edit to the choice of your question:
+node 'stapp01.stratos.xfusioncorp.com' {
+  user { 'ravi':
+    ensure     => present,
+    uid        => 1550,
+    managehome => true,
+  }
+}
+#Save the file and ssh into the stapp01 server. Check that puppet agent is up and running by running:
+systemctl status puppet
+#If it is running then to run the manifest that was created on the puppet master, run:
+sudo puppet agent -t
 =======================================================================================================================================================================================================
 #Task15:
 =======================================================================================================================================================================================================
