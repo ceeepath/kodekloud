@@ -183,7 +183,40 @@ ansible-vault encrypt secrets/admins_password.yml secrets/developers_password.ym
 #Now run the playbook using:
 ansible-playbook -i inventory add_users.yml
 =======================================================================================================================================================================================================
-#Task13:
+#Task11:a. Update ~/ansible/playbook.yml playbook to run the httpd role on App Server 3.
+#b. Create a jinja2 template index.html.j2 under /home/thor/ansible/role/httpd/templates/ directory and add a line This file was created using Ansible on <respective server>.
+#Also please make sure not to hard code the server name inside the template. Instead, use inventory_hostname variable to fetch the correct value.
+#c. Add a task inside /home/thor/ansible/role/httpd/tasks/main.yml to copy this template on App Server 3 under /var/www/html/index.html.
+#Also make sure that /var/www/html/index.html file's permissions are 0777.
+#d. The user/group owner of /var/www/html/index.html file must be respective sudo user of the server (for example tony in case of stapp01).
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Be sure to cd inside the ansible directory before running this task
+#Edit the playbook.yml file to add the host to execute the playbook on. After editing, the file should contain:
+---
+- hosts: stapp03
+  become: yes
+  become_user: root
+  roles:
+    - role/httpd
+
+#To create the Jinja2 template index.html.j2 under the /home/thor/ansible/role/httpd/templates/, vi into role/httpd/templates/index.html.j2 and paste the following content:
+This file was created using Ansible on {{ inventory_hostname }}
+#Save the file and go to the role/httpd/tasks/main.yml file to update it with a task to copy the index.html.j2 file to the target machine.
+#The following tasks should be added to the tasks/main.yml file:
+
+- name: Create index.html file
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
+- name: Set permissions and ownership for index.html file
+  file:
+    path: /var/www/html/index.html
+    mode: '0777'
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+#Save then run the playbook using: ansible-playbook -i inventory playbook.yml
 =======================================================================================================================================================================================================
 #Task14:
 =======================================================================================================================================================================================================
