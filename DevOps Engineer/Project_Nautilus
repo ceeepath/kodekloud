@@ -248,6 +248,18 @@ sudo systemctl enable jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 =======================================================================================================================================================================================================
-#Task16:
+#Task14: Create a Jenkins job named install-packages and configure it to accomplish below given tasks. Add a string parameter named PACKAGE.
+#Configure it to install a package on the storage server in Stratos Datacenter provided to the $PACKAGE parameter.
+--------------------------------------------------------------------------------------------------------------------------
+Go to Jenkins Plugin and install "SSH" [Choose Restart Jenkins after Installing]
+Navigate to Manage Jenkins --- Under Security Tab click Credentials --- Select Global --- Add Credentials --- Set up the credentials for Storage server
+Username = natasha Password = Bl@kW ID = ststor01 You can give description if you want. I gave mine "Storage Server"
+Navigate to Manage Jenkins --- Under System Configuration, select Configure System --- Scroll to  SSH remote hosts and select Add --- Set up SSH Host
+Hostname = ststor01 Port = 22 Credentials = The credential you created earlier. Remember to check the Pty checkbox. Click check connection to confirm okay.
+On the Jenkins Dashboard, click on New Item, Enter name "install-packages", select freestyle project and click ok.
+Under General Tab select This project is parameterised, select Add Parameter and choose String Parameter. Input PACKAGE in the name, input any yum package as the Default Value. I choose to install "tree" for my own.
+Scroll to Build Steps and select "Execute shell script on remote host using ssh"
+In the command box, write the command to execute the package [echo Bl@kW | sudo -S yum install -y $PACKAGE]
+Save and Build to confirm if Build is successful.
 =======================================================================================================================================================================================================
 #Task17:
